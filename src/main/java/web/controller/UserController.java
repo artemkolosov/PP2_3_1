@@ -7,8 +7,8 @@ import web.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import web.service.UserService;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 import javax.validation.Valid;
 
 @Controller
@@ -59,6 +59,7 @@ public class UserController {
 
     public String allUsersPage(ModelMap model) {
         List<User> allUsers = userService.readAllUsers();
+        allUsers.sort(Comparator.comparing(User::getId));
         model.addAttribute("users", allUsers);
         return "users";
 
@@ -76,15 +77,6 @@ public class UserController {
         return "/useredit";
     }
 
-
-
-//    @PostMapping("/useredit")
-//    public String update(Model model, @RequestParam("id") Long id) {
-//        model.addAttribute("user", userService.readUser(id));
-//        user.setId(id);
-//        userService.updateUser(user);
-//        return "redirect:/users";
-//    }
 
     @PostMapping("/useredit")
     public String saveUser(@ModelAttribute("user") @Valid User user,
@@ -105,14 +97,6 @@ public class UserController {
 
         return "redirect:/users";
     }
-
-
-
-//    @PostMapping("/useredit")
-//    public String update(@ModelAttribute("user") @Valid User user) {
-//        userService.updateUser(user);
-//        return "redirect:/users";
-//    }
 
 
 //Delete
