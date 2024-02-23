@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div align="left">
+    <h2>Список пользователей</h2>
+
+
+    <table border="1">
+
+    <tr>
+        <b>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Почта</th>
+<!--            <th>Пароль</th>-->
+            <th>Доступ</th>
+            <th>Редактировать</th>
+        </b>
+    </tr>
+    <br>
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.id}"></td>
+        <td th:utext="${user.name}"></td>
+        <td th:utext="${user.lastname}"></td>
+        <td th:utext="${user.age}"></td>
+        <td th:utext="${user.email}"></td>
+<!--        <td th:utext="${u.password}"></td>-->
+        <td th:utext="${user.roles}"></td>
+
+        <td>
+            <a th:href="'/useredit?id='+${user.id}">Редактировать</a>
+            <a th:href="'/delete?id='+${user.id}">Удалить</a>
+            <br>
+        </td>
+    </tr>
+    </table>
+
+    <h3><a href="/useradd">Добавить пользователя</a></h3>
+</div>
+</body>
+</html>
