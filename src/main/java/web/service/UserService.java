@@ -12,7 +12,7 @@ public interface UserService {
     List<User> readAllUsers();
     User readUser(Long id);
 
-    void updateUser(User user);
+    void updateUser(User user, Long id);
 
     void deleteUser(Long id);
 }

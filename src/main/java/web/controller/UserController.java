@@ -1,6 +1,7 @@
 package web.controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import org.springframework.stereotype.Controller;
@@ -77,11 +78,34 @@ public class UserController {
 
 
 
+//    @PostMapping("/useredit")
+//    public String update(Model model, @RequestParam("id") Long id) {
+//        model.addAttribute("user", userService.readUser(id));
+//        user.setId(id);
+//        userService.updateUser(user);
+//        return "redirect:/users";
+//    }
+
     @PostMapping("/useredit")
-    public String update(@ModelAttribute("user") @Valid User user) {
-        userService.updateUser(user);
+    public String saveUser(@ModelAttribute("user") @Valid User user,
+                           BindingResult bindingResult,
+                           @RequestParam("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            if (id > 0) {
+                user.setId(id);
+            }
+            return "useredit";
+
+        }
+        if (user.getId() == 0) {
+            userService.createUser(user);
+        } else {
+            userService.updateUser(user, id);
+        }
+
         return "redirect:/users";
     }
+
 
 
 //    @PostMapping("/useredit")

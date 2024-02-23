@@ -9,7 +9,7 @@
 <h1>Изменить пользователя</h1>
 <br/><br/>
 
-<form method="POST" th:action="@{/useredit}" th:object="${user}">
+<form method="POST" th:action="@{'/useredit?id=' + ${user.getId()}}" th:object="${user}">
     <div th:if="${user}">
         <table>
             <tr th:if="${user.id}">
